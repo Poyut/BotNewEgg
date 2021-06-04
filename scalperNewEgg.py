@@ -6,10 +6,15 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from fake_useragent import UserAgent
+import getpass
+import os
+
+username = getpass.getuser()
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 EMAIL = ""
 PASSWORD = ""
-PATH = "/Users/poiuy/Desktop/BotRTX/chromedriver"
+PATH = dir_path+"/chromedriver"
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_experimental_option("excludeSwitches", ['enable-automation'])
