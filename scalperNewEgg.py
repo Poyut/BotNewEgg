@@ -12,8 +12,9 @@ import os
 username = getpass.getuser()
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-EMAIL = ""
-PASSWORD = ""
+email = ""
+password = ""
+url = "https://www.w3schools.com/python/python_variables.asp"
 PATH = dir_path+"/chromedriver"
 
 chrome_options = webdriver.ChromeOptions()
@@ -28,68 +29,70 @@ chrome_options.add_argument(f'user-agent={userAgent}')
 driver = webdriver.Chrome(PATH,options=chrome_options)
 
 # URL de l'item désiré
-#driver.get("https://www.newegg.ca/tp-link-archer-tx50e-pci-express/p/0E6-002W-005Y8?Item=0E6-002W-005Y8&cm_sp=Homepage_dailydeals-_-P2_0E6-002W-005Y8-_-06042021")
-driver.get("https://www.newegg.ca/gigabyte-geforce-rtx-3080-ti-gv-n308teagle-12gd/p/N82E16814932439?Description=3080ti&cm_re=3080ti-_-14-932-439-_-Product")
 
-buyButton = False
+def test():
 
-while not buyButton:
+    driver.get(url)
 
-    try:
-        #Cherche le bouton add to cart
-        addToCartBtn = WebDriverWait(driver, 1).until(
-        EC.presence_of_element_located((By.CLASS_NAME, "btn-primary"))
-        )
-        addToCartBtn.click()
-        print("Added to cart !")
-        time.sleep(1)
-        #Ouvre la page du panier
-        driver.get("https://secure.newegg.ca/shop/cart")
-        buyButton = True
-        # À partir d'ici, si le bot crash l'utilisateur peut conitnuer à entrer les infos manuellement
+    buyButton = False
 
-        # Cherche le bouton paypal checkout et click dessus
-        checkoutBtn = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CLASS_NAME,"paypal-button"))
-        )
-        checkoutBtn.click()
-        driver.switch_to.window(driver.window_handles[1])
+    while not buyButton:
 
-        emailField = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.NAME,"login_email"))
-        )
-        emailField.click()
-        emailField.send_keys(EMAIL)
-        print("write email")
-        time.sleep(1)
-
-        nextBtn = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID,"btnNext"))
-        )
-        nextBtn.click()
-        time.sleep(2)
-        passwordField = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.NAME,"login_password"))
-        )
-        print("write password")
-        passwordField.send_keys(PASSWORD)
-
-        print("test")
-        btnLogin = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID,"btnLogin"))
-        )
-        btnLogin.click()
-
-        # --------- LA FUNCTION CI-DESSOUS VALIDE LE PAIEMENT -------------
-
-        btnPayment = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID,"payment-submit-btn"))
-        )
-        btnPayment.click()
-
-    except:
-        # Refresh page after a delay
-        if(buyButton == False):
+        try:
+            #Cherche le bouton add to cart
+            addToCartBtn = WebDriverWait(driver, 1).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "btn-primary"))
+            )
+            addToCartBtn.click()
+            print("Added to cart !")
             time.sleep(1)
-            print("sold out...")
-            driver.refresh()
+            #Ouvre la page du panier
+            driver.get("https://secure.newegg.ca/shop/cart")
+            buyButton = True
+            # À partir d'ici, si le bot crash l'utilisateur peut conitnuer à entrer les infos manuellement
+
+            # Cherche le bouton paypal checkout et click dessus
+            checkoutBtn = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME,"paypal-button"))
+            )
+            checkoutBtn.click()
+            driver.switch_to.window(driver.window_handles[1])
+
+            emailField = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.NAME,"login_email"))
+            )
+            emailField.click()
+            emailField.send_keys(email)
+            print("write email")
+            time.sleep(1)
+
+            nextBtn = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID,"btnNext"))
+            )
+            nextBtn.click()
+            time.sleep(2)
+            passwordField = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.NAME,"login_password"))
+            )
+            print("write password")
+            passwordField.send_keys(password)
+
+            print("test")
+            btnLogin = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID,"btnLogin"))
+            )
+            btnLogin.click()
+
+            # --------- LA FUNCTION CI-DESSOUS VALIDE LE PAIEMENT -------------
+
+            btnPayment = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.ID,"payment-submit-btn"))
+            )
+            btnPayment.click()
+
+        except:
+            # Refresh page after a delay
+            if(buyButton == False):
+                time.sleep(1)
+                print("sold out...")
+                driver.refresh()
