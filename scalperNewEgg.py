@@ -30,7 +30,7 @@ driver = webdriver.Chrome(PATH,options=chrome_options)
 
 # URL de l'item désiré
 
-def test():
+def scalp():
 
     driver.get(url)
 
@@ -88,7 +88,7 @@ def test():
             btnPayment = WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.ID,"payment-submit-btn"))
             )
-            btnPayment.click()
+            #btnPayment.click()
 
         except:
             # Refresh page after a delay
