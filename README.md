@@ -4,3 +4,11 @@ This bot made with python refresh a newegg web page until the article is availab
 - You need to install python. https://www.python.org/downloads/
 
 - For running the script, open a command prompt in the actual folder and write : python .\scalperNewEgg.py
+
+# New maintenance
+
+- The bot have a graphic interface now
+
+- Run it by taping " python .\app.py " in the command prompt
+
+- There's 3 input field (paypal email, paypal password, newegg item url) and a start button
