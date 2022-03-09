@@ -7,7 +7,7 @@ This bot made with python refresh a newegg web page until the article is availab
 
 # New maintenance
 
-- The bot have a graphic interface now
+- The bot have now a graphic interface
 
 - Run it by taping " python .\app.py " in the command prompt
 
